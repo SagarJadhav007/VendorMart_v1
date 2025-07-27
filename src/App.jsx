@@ -21,7 +21,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/register" element={<Registeration/>}/>
-        <Route path="/login" element={<Login />} />
+        <Route path="https://vendor-mart-orpin.vercel.app/login" element={<Login />} />
         <Route path="/products" element ={<SupplierDirectory/>}/> 
         <Route path="/order-management" element={<OrderManagement />} />
       </Routes>
