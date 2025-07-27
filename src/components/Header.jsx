@@ -1,77 +1,87 @@
-import { Link } from 'react-router-dom';
-import { useState, useRef, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import LoginModal from './LoginModal';
 import RegisterModal from './RegisterModal';
+import './Header.css';
 
 export default function Header({ isLoggedIn, onLogout, role }) {
   const [isRegisterOpen, setRegisterOpen] = useState(false);
   const [isLoginOpen, setLoginOpen] = useState(false);
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (menuRef.current && !menuRef.current.contains(event.target)) {
-        setMenuOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
+  const location = useLocation();
 
   const handleLogin = () => {
     onLogout();
   };
 
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
   return (
     <>
-      <header className="w-full bg-white/90 shadow sticky top-0 z-50">
-        <div className="w-full px-8 h-24 flex justify-between items-center">
-          <Link to="/" className="flex items-center no-underline">
-            <div className="ml-5 text-2xl font-bold text-gray-800">VendorMart</div>
-          </Link>
-
-          <div className="flex items-center gap-4">
-            {role === 'customer' && (
-              <Link
-                to="/find-raw-materials"
-                className="no-underline text-gray-800 font-bold px-6 py-3 rounded-lg bg-yellow-400 text-base border-2 border-yellow-400 transition hover:bg-yellow-500"
-              >
-                Find Raw Materials
-              </Link>
-            )}
-            {role === 'vendor' && (
-              <Link
-                to="/"
-                className="no-underline text-gray-800 font-bold px-6 py-3 rounded-lg bg-yellow-400 text-base border-2 border-yellow-400 transition hover:bg-yellow-500"
-              >
-                Dashboard
-              </Link>
-            )}
-            {isLoggedIn ? (
-              <button
-                onClick={onLogout}
-                className="border-2 border-gray-800 rounded-full text-white bg-gray-800 px-6 py-3 text-base font-bold cursor-pointer transition hover:bg-white hover:text-gray-800"
-              >
-                Logout
-              </button>
-            ) : (
-              <>
-                <button
-                  onClick={() => setLoginOpen(true)}
-                  className="border-2 border-gray-800 rounded-full text-white bg-gray-800 px-6 py-3 text-base font-bold cursor-pointer transition hover:bg-white hover:text-gray-800"
-                >
-                  LOGIN
-                </button>
-                <button
-                  onClick={() => setRegisterOpen(true)}
-                  className="border-2 border-gray-800 rounded-full text-white bg-gray-800 px-6 py-3 text-base font-bold cursor-pointer transition hover:bg-white hover:text-gray-800"
-                >
-                  REGISTER
-                </button>
-              </>
-            )}
+      <header className="navbar">
+        <div className="nav-logo">
+          <div className="logo-icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+              <path d="M10 20C10 14.4772 14.4772 10 20 10C25.5228 10 30 14.4772 30 20C30 25.5228 25.5228 30 20 30C14.4772 30 10 25.5228 10 20Z" fill="#8B5CF6"/>
+              <path d="M15 15C15 12.2386 17.2386 10 20 10C22.7614 10 25 12.2386 25 15C25 17.7614 22.7614 20 20 20C17.2386 20 15 17.7614 15 15Z" fill="#EC4899"/>
+            </svg>
           </div>
+          <div className="logo-text">VendorMart</div>
+        </div>
+        
+        <div className="nav-links">
+          <Link 
+            to="/" 
+            className={`nav-link ${isActive('/') ? 'active' : ''}`}
+          >
+            Home
+          </Link>
+          <Link 
+            to="/suppliers" 
+            className={`nav-link ${isActive('/suppliers') ? 'active' : ''}`}
+          >
+            Suppliers
+          </Link>
+          <Link 
+            to="/order-management" 
+            className={`nav-link ${isActive('/order-management') ? 'active' : ''}`}
+          >
+            Orders
+          </Link>
+          <Link 
+            to="/contact" 
+            className={`nav-link ${isActive('/contact') ? 'active' : ''}`}
+          >
+            Contact
+          </Link>
         </div>
 
+        <div className="nav-auth">
+          {isLoggedIn ? (
+            <button
+              onClick={onLogout}
+              className="auth-btn logout-btn"
+            >
+              Logout
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={() => setLoginOpen(true)}
+                className="auth-btn login-btn"
+              >
+                LOGIN
+              </button>
+              <button
+                onClick={() => setRegisterOpen(true)}
+                className="auth-btn register-btn"
+              >
+                REGISTER
+              </button>
+            </>
+          )}
+        </div>
       </header>
 
       <LoginModal
