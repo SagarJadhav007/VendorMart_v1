@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FeaturedSuppliers from './FeaturedSuppliers';
 import '../App.css';
+import "../Supplier.css"
 
 function SupplierDirectory() {
   const [selectedCategory, setSelectedCategory] = useState('All Categories')
