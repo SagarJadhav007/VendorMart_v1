@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import Contact from "./pages/ContactUs";
 import SupplierDirectory from "./pages/Supplier";
 import Home from "./pages/Home"
+import OrderManagement from "./pages/OrderManagement";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/products" element ={<SupplierDirectory/>}/>
+        <Route path="/order-management" element={<OrderManagement />} />
       </Routes>
       <Footer />
       </div>
