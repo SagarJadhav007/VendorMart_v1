@@ -42,7 +42,7 @@ export default function VendorLogin() {
   const handleSubmit = async () => {
   if (validateForm()) {
     try {
-      const res = await fetch("http://localhost:5000/auth/login", {
+      const res = await fetch("https://vendor-mart-backend-jjjpgdrcj-sagarjadhav007s-projects.vercel.app/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

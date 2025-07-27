@@ -107,7 +107,7 @@ const handleSubmit = async () => {
   if (formData.businessDescription.trim()) payload.businessDescription = formData.businessDescription.trim();
 
   try {
-    const res = await fetch("http://localhost:5000/auth/register", {
+    const res = await fetch("https://vendor-mart-backend-jjjpgdrcj-sagarjadhav007s-projects.vercel.app/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
