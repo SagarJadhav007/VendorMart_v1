@@ -18,7 +18,6 @@ app.use(cors());
 app.use("/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/orders", OrderRoute);
-app.use("/api/auth", authRoutes);
 app.use("/api/ratings", ratingRoutes);
 
 

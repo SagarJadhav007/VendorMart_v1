@@ -1,12 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import LoginModal from './LoginModal';
-import RegisterModal from './RegisterModal';
 import './Header.css';
 
 export default function Header({ isLoggedIn, onLogout, role }) {
-  const [isRegisterOpen, setRegisterOpen] = useState(false);
-  const [isLoginOpen, setLoginOpen] = useState(false);
   const location = useLocation();
 
   const handleLogin = () => {
@@ -38,10 +34,10 @@ export default function Header({ isLoggedIn, onLogout, role }) {
             Home
           </Link>
           <Link 
-            to="/suppliers" 
-            className={`nav-link ${isActive('/suppliers') ? 'active' : ''}`}
+            to="/products" 
+            className={`nav-link ${isActive('/products') ? 'active' : ''}`}
           >
-            Suppliers
+            Products
           </Link>
           <Link 
             to="/order-management" 
@@ -67,40 +63,24 @@ export default function Header({ isLoggedIn, onLogout, role }) {
             </button>
           ) : (
             <>
+            <a href="/login">
               <button
-                onClick={() => setLoginOpen(true)}
                 className="auth-btn login-btn"
               >
                 LOGIN
               </button>
+              </a>
+              <a href="/register">
               <button
-                onClick={() => setRegisterOpen(true)}
                 className="auth-btn register-btn"
               >
                 REGISTER
               </button>
+              </a>
             </>
           )}
         </div>
       </header>
-
-      <LoginModal
-        isOpen={isLoginOpen}
-        onClose={() => setLoginOpen(false)}
-        onSwitchToRegister={() => {
-          setLoginOpen(false);
-          setRegisterOpen(true);
-        }}
-        onLogin={handleLogin}
-      />
-      <RegisterModal
-        isOpen={isRegisterOpen}
-        onClose={() => setRegisterOpen(false)}
-        onSwitchToLogin={() => {
-          setLoginOpen(true);
-          setRegisterOpen(false);
-        }}
-      />
     </>
   );
 }
