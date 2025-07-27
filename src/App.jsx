@@ -8,6 +8,7 @@ import Home from "./pages/Home"
 import Registeration from "./pages/Registeration";
 import OrderManagement from "./pages/OrderManagement";
 import Login from "./pages/Login";
+import Shopping from "./pages/ShoppingCart"
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
       <div className="w-screen">
       <Header />
       <Routes>
+        <Route path="/cart" element={<Shopping />}/>
         <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/contact" element={<Contact />} />

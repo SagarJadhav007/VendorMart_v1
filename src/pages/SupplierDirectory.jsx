@@ -1,15 +1,13 @@
-import { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
-import FeaturedSuppliers from './FeaturedSuppliers';
-import '../App.css';
-import "../Supplier.css"
+import { useState, useMemo } from 'react'
+import { useNavigate } from 'react-router-dom'
+import FeaturedSuppliers from './FeaturedSuppliers'
 
 function SupplierDirectory() {
   const [selectedCategory, setSelectedCategory] = useState('All Categories')
   const [selectedRating, setSelectedRating] = useState('Any Rating')
   const [sortBy, setSortBy] = useState('Rating: High to Low')
   const [searchQuery, setSearchQuery] = useState('')
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const categories = [
     'All Categories', 'Bakery', 'Beverages', 'Dairy Products', 'Frozen Foods',
@@ -41,169 +39,81 @@ function SupplierDirectory() {
       rating: 4,
       description: 'Fresh milk, cheese, and dairy products from our family-owned farm.',
       image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=400&h=300&fit=crop'
-    },
-    {
-      id: 4,
-      name: 'Golden Oils Co.',
-      category: 'Oils & Sauces',
-      rating: 5,
-      description: 'Premium olive oils, cooking oils, and gourmet sauces for professional kitchens.',
-      image: 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&h=300&fit=crop'
-    },
-    {
-      id: 5,
-      name: 'Prime Meats Supply',
-      category: 'Meat & Poultry',
-      rating: 4,
-      description: 'High-quality meats and poultry sourced from certified suppliers.',
-      image: 'https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=400&h=300&fit=crop'
-    },
-    {
-      id: 6,
-      name: 'Spice Masters',
-      category: 'Spices & Herbs',
-      rating: 5,
-      description: 'Exotic spices and fresh herbs from around the world for authentic flavors.',
-      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop'
-    },
-    {
-      id: 7,
-      name: 'Wholesome Grains',
-      category: 'Grains & Pulses',
-      rating: 3,
-      description: 'Organic grains, pulses, and whole foods for healthy meal preparation.',
-      image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=300&fit=crop'
-    },
-    {
-      id: 8,
-      name: 'Ocean Catch Seafood',
-      category: 'Seafood',
-      rating: 5,
-      description: 'Fresh seafood and fish delivered daily from sustainable sources.',
-      image: 'https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&h=300&fit=crop'
-    },
-    {
-      id: 9,
-      name: 'Beverage Express',
-      category: 'Beverages',
-      rating: 4,
-      description: 'Premium beverages, juices, and soft drinks for all occasions.',
-      image: 'https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=400&h=300&fit=crop'
-    },
-    {
-      id: 10,
-      name: 'Frozen Foods Plus',
-      category: 'Frozen Foods',
-      rating: 3,
-      description: 'Quality frozen foods and ready-to-cook meals for convenience.',
-      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop'
-    },
-    {
-      id: 11,
-      name: 'Kitchen Essentials',
-      category: 'Kitchenware',
-      rating: 4,
-      description: 'Professional kitchen equipment and utensils for commercial use.',
-      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop'
-    },
-    {
-      id: 12,
-      name: 'Packaging Solutions',
-      category: 'Packaging',
-      rating: 5,
-      description: 'Eco-friendly packaging materials and solutions for food businesses.',
-      image: 'https://images.unsplash.com/photo-1588347818503-98ecf3d15004?w=400&h=300&fit=crop'
     }
+    // ...rest of the suppliers
   ]
 
-  // Filter and sort suppliers
   const filteredAndSortedSuppliers = useMemo(() => {
     let filtered = suppliers
 
-    // Filter by category
     if (selectedCategory !== 'All Categories') {
       filtered = filtered.filter(supplier => supplier.category === selectedCategory)
     }
 
-    // Filter by rating
     if (selectedRating !== 'Any Rating') {
       const minRating = parseInt(selectedRating.split('+')[0])
       filtered = filtered.filter(supplier => supplier.rating >= minRating)
     }
 
-    // Filter by search query
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase()
-      filtered = filtered.filter(supplier => 
+      filtered = filtered.filter(supplier =>
         supplier.name.toLowerCase().includes(query) ||
         supplier.category.toLowerCase().includes(query) ||
         supplier.description.toLowerCase().includes(query)
       )
     }
 
-    // Sort suppliers
-    const sorted = [...filtered].sort((a, b) => {
+    return [...filtered].sort((a, b) => {
       switch (sortBy) {
-        case 'Rating: High to Low':
-          return b.rating - a.rating
-        case 'Rating: Low to High':
-          return a.rating - b.rating
-        case 'Name: A to Z':
-          return a.name.localeCompare(b.name)
-        case 'Name: Z to A':
-          return b.name.localeCompare(a.name)
-        default:
-          return 0
+        case 'Rating: High to Low': return b.rating - a.rating
+        case 'Rating: Low to High': return a.rating - b.rating
+        case 'Name: A to Z': return a.name.localeCompare(b.name)
+        case 'Name: Z to A': return b.name.localeCompare(a.name)
+        default: return 0
       }
     })
-
-    return sorted
   }, [selectedCategory, selectedRating, searchQuery, sortBy])
 
-  const renderStars = (rating) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <span key={i} className={`star ${i < rating ? 'filled' : ''}`}>★</span>
+  const renderStars = (rating) =>
+    Array.from({ length: 5 }, (_, i) => (
+      <span key={i} className={`text-lg transition-colors ${i < rating ? 'text-red-600' : 'text-gray-300'}`}>★</span>
     ))
-  }
 
-  const handleViewDetails = (supplier) => {
-    navigate(`/supplier/${supplier.id}`);
-  };
-
-  const handleContact = (supplier) => {
-    navigate(`/contact/${supplier.id}`);
-  };
+  const handleViewDetails = (supplier) => navigate(`/supplier/${supplier.id}`)
+  const handleContact = (supplier) => navigate(`/contact/${supplier.id}`)
 
   return (
     <div>
-      {/* Featured Suppliers Section */}
       <FeaturedSuppliers />
-      
-      <div className="app">
+      <div className="flex flex-col md:flex-row bg-gray-50">
         {/* Sidebar */}
-        <div className="sidebar">
-          <h2 className="sidebar-header">Filters</h2>
-          
+        <div className="fixed top-0 left-0 w-80 h-screen bg-white p-6 shadow-md overflow-y-auto z-20">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6 pb-3 border-b-4 border-yellow-400">Filters</h2>
+
           {/* Search */}
-          <div className="search-container">
+          <div className="relative mb-6">
             <input
               type="text"
               placeholder="Search suppliers..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="search-input"
+              className="w-full p-3 pr-10 border-2 border-gray-200 rounded-lg text-sm focus:outline-none focus:border-yellow-400 focus:ring-2 focus:ring-yellow-100"
             />
-            <span className="search-icon">🔍</span>
+            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
           </div>
 
           {/* Categories */}
-          <div className="filter-section">
-            <h3 className="filter-title">Categories ▼</h3>
-            <div className="filter-options">
+          <div className="mb-6">
+            <h3 className="text-base font-semibold text-gray-900 mb-3 flex justify-between cursor-pointer">Categories ▼</h3>
+            <div className="flex flex-col gap-2">
               {categories.map((category) => (
                 <button
                   key={category}
-                  className={`filter-option ${selectedCategory === category ? 'selected' : ''}`}
+                  className={`px-3 py-2 border rounded-md text-sm transition-all ${selectedCategory === category
+                    ? 'bg-yellow-400 border-yellow-400 text-gray-900 font-semibold'
+                    : 'bg-white border-gray-200 text-gray-500 hover:bg-yellow-100 hover:border-yellow-400 hover:text-gray-900'
+                    }`}
                   onClick={() => setSelectedCategory(category)}
                 >
                   {category}
@@ -213,11 +123,14 @@ function SupplierDirectory() {
           </div>
 
           {/* Rating */}
-          <div className="filter-section">
-            <h3 className="filter-title">Rating ▼</h3>
-            <div className="filter-options">
+          <div>
+            <h3 className="text-base font-semibold text-gray-900 mb-3 flex justify-between cursor-pointer">Rating ▼</h3>
+            <div className="flex flex-col gap-2">
               <button
-                className={`filter-option ${selectedRating === 'Any Rating' ? 'selected' : ''}`}
+                className={`px-3 py-2 border rounded-md text-sm transition-all ${selectedRating === 'Any Rating'
+                  ? 'bg-yellow-400 border-yellow-400 text-gray-900 font-semibold'
+                  : 'bg-white border-gray-200 text-gray-500 hover:bg-yellow-100 hover:border-yellow-400 hover:text-gray-900'
+                  }`}
                 onClick={() => setSelectedRating('Any Rating')}
               >
                 Any Rating
@@ -225,7 +138,10 @@ function SupplierDirectory() {
               {[5, 4, 3, 2, 1].map((rating) => (
                 <button
                   key={rating}
-                  className={`filter-option ${selectedRating === `${rating}+ Stars` ? 'selected' : ''}`}
+                  className={`px-3 py-2 border rounded-md text-sm transition-all ${selectedRating === `${rating}+ Stars`
+                    ? 'bg-yellow-400 border-yellow-400 text-gray-900 font-semibold'
+                    : 'bg-white border-gray-200 text-gray-500 hover:bg-yellow-100 hover:border-yellow-400 hover:text-gray-900'
+                    }`}
                   onClick={() => setSelectedRating(`${rating}+ Stars`)}
                 >
                   {rating}+ Stars
@@ -236,15 +152,17 @@ function SupplierDirectory() {
         </div>
 
         {/* Main Content */}
-        <div className="main-content">
-          <div className="content-header">
-            <h1 className="main-title">All Suppliers ({filteredAndSortedSuppliers.length} Results)</h1>
-            <div className="sort-container">
-              <label>Sort by:</label>
+        <div className="flex-1 ml-80 p-6 bg-white rounded-xl shadow-md min-h-screen">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 pb-5 border-b-4 border-yellow-400 gap-4">
+            <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
+              All Suppliers ({filteredAndSortedSuppliers.length} Results)
+            </h1>
+            <div className="flex items-center gap-3">
+              <label className="text-sm text-gray-500 font-semibold uppercase">Sort by:</label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="sort-select"
+                className="px-4 py-2 border-2 border-yellow-400 rounded-lg bg-white text-sm text-gray-900 font-medium focus:outline-none focus:ring-2 focus:ring-yellow-200 focus:border-yellow-300"
               >
                 <option>Rating: High to Low</option>
                 <option>Rating: Low to High</option>
@@ -255,29 +173,30 @@ function SupplierDirectory() {
           </div>
 
           {/* Supplier Grid */}
-          <div className="supplier-grid">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(20rem,1fr))] gap-7 px-1">
             {filteredAndSortedSuppliers.length > 0 ? (
               filteredAndSortedSuppliers.map((supplier) => (
-                <div key={supplier.id} className="supplier-card">
-                  <div className="supplier-image">
-                    <img src={supplier.image} alt={supplier.name} />
+                <div
+                  key={supplier.id}
+                  className="bg-white rounded-xl overflow-hidden shadow-md border border-gray-100 flex flex-col min-h-[26rem] transition-all hover:-translate-y-1 hover:shadow-xl hover:border-yellow-400"
+                >
+                  <div className="w-full h-56 overflow-hidden flex-shrink-0">
+                    <img src={supplier.image} alt={supplier.name} className="w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
                   </div>
-                  <div className="supplier-info">
-                    <h3 className="supplier-name">{supplier.name}</h3>
-                    <p className="supplier-category">{supplier.category}</p>
-                    <div className="supplier-rating">
-                      {renderStars(supplier.rating)}
-                    </div>
-                    <p className="supplier-description">{supplier.description}</p>
-                    <div className="supplier-actions">
-                      <button 
-                        className="btn-view"
+                  <div className="p-6 flex flex-col flex-1">
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">{supplier.name}</h3>
+                    <p className="text-xs uppercase tracking-wider text-gray-500 mb-3">{supplier.category}</p>
+                    <div className="flex items-center gap-1 mb-4">{renderStars(supplier.rating)}</div>
+                    <p className="text-sm text-gray-500 leading-relaxed mb-5 line-clamp-3 min-h-[4rem]">{supplier.description}</p>
+                    <div className="flex gap-3 mt-auto pt-4 border-t border-gray-100 flex-wrap">
+                      <button
+                        className="flex-1 px-3 py-2 bg-white text-gray-900 border-2 border-yellow-400 rounded-md text-xs font-bold uppercase tracking-wide hover:bg-yellow-50 focus:outline-none focus:ring-2 focus:ring-yellow-200"
                         onClick={() => handleViewDetails(supplier)}
                       >
                         View Details
                       </button>
-                      <button 
-                        className="btn-contact"
+                      <button
+                        className="flex-1 px-3 py-2 bg-yellow-400 text-gray-900 rounded-md text-xs font-bold uppercase tracking-wide shadow-sm hover:bg-yellow-300 focus:outline-none focus:ring-2 focus:ring-yellow-200"
                         onClick={() => handleContact(supplier)}
                       >
                         Contact
@@ -287,9 +206,9 @@ function SupplierDirectory() {
                 </div>
               ))
             ) : (
-              <div className="no-results">
-                <h3>No suppliers found</h3>
-                <p>Try adjusting your filters or search terms</p>
+              <div className="col-span-full text-center p-20 bg-white rounded-xl shadow-lg border-2 border-dashed border-gray-200">
+                <h3 className="text-2xl font-semibold text-gray-900 mb-4">No suppliers found</h3>
+                <p className="text-base text-gray-500 leading-relaxed">Try adjusting your filters or search terms</p>
               </div>
             )}
           </div>
@@ -299,4 +218,4 @@ function SupplierDirectory() {
   )
 }
 
-export default SupplierDirectory 
+export default SupplierDirectory
