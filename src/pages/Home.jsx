@@ -91,25 +91,6 @@ export default function VendorMartHome() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-white shadow-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">VM</span>
-              </div>
-              <span className="font-bold text-xl text-gray-900">VendorMart</span>
-            </div>
-            <nav className="hidden md:flex space-x-8">
-              <a href="#" className="text-orange-500 font-medium">Home</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Suppliers</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Orders</a>
-              <a href="#" className="text-gray-600 hover:text-gray-900 transition-colors">Contact</a>
-            </nav>
-          </div>
-        </div>
-      </header>
 
       {/* Hero Section */}
       <section 
@@ -302,58 +283,6 @@ export default function VendorMartHome() {
           </div>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gradient-to-r from-orange-500 to-blue-500 text-white py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-6">
-            <div>
-              <div className="flex items-center space-x-2 mb-3">
-                <div className="w-6 h-6 bg-white rounded-lg flex items-center justify-center">
-                  <span className="text-orange-500 font-bold text-xs">VM</span>
-                </div>
-                <span className="font-bold text-lg">VendorMart</span>
-              </div>
-              <p className="text-orange-100 text-sm">
-                Connecting vendors with quality suppliers.
-              </p>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold text-base mb-3">Quick Links</h3>
-              <ul className="space-y-1 text-orange-100 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Home</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Suppliers</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Orders</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold text-base mb-3">Support</h3>
-              <ul className="space-y-1 text-orange-100 text-sm">
-                <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">FAQ</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Terms</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Privacy</a></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold text-base mb-3">Contact</h3>
-              <div className="space-y-1 text-orange-100 text-sm">
-                <p>support@vendormart.com</p>
-                <p>+1 (800) 555-0199</p>
-                <p>24/7 Support</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="border-t border-white/20 mt-6 pt-4 text-center text-orange-100 text-sm">
-            <p>&copy; 2024 VendorMart. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
