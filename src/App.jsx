@@ -7,7 +7,7 @@ import SupplierDirectory from "./pages/SupplierDirectory";
 import Home from "./pages/Home"
 import Registeration from "./pages/Registeration";
 import OrderManagement from "./pages/OrderManagement";
-import Login from "./pages/Login";
+import Login from "./Login";
 import Shopping from "./pages/ShoppingCart"
 
 function App() {
