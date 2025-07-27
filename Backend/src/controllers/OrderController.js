@@ -88,3 +88,26 @@ export const updateOrderStatus = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+// ✅ NEW FUNCTION: Fetch Orders
+export const getOrders = async (req, res) => {
+  try {
+    let orders;
+
+    if (req.user.role === "vendor") {
+      orders = await Order.find({ vendor_id: req.user.id })
+        .populate("wholesaler_id", "name")
+        .sort({ createdAt: -1 });
+    } else if (req.user.role === "wholesaler") {
+      orders = await Order.find({ wholesaler_id: req.user.id })
+        .populate("vendor_id", "name")
+        .sort({ createdAt: -1 });
+    } else {
+      return res.status(403).json({ message: "Unauthorized" });
+    }
+
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
