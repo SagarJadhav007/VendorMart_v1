@@ -163,7 +163,7 @@ export default function VendorLogin() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-4.5 text-gray-500 hover:text-gray-700"
+                  className="absolute right-4 top-4.5  mb-1 text-gray-500 hover:text-gray-700"
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
